@@ -14,7 +14,7 @@ router.get('/api', (req, res)=> {
 })
 
 tables.forEach(table => {
-    router.use(`/api/$table`, require(`./api/${table}Routes`))
+    router.use(`/api/${table}`, require(`./api/${table}Routes`))
 })
 
 router.get('*', (req, res)=> {
