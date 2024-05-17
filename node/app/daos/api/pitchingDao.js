@@ -1,15 +1,31 @@
 const con = require('../../config/dbconfig')
 
-const teamDao = {
+const pitchingDao = {
 
-    table: 'team',
+    table: 'pitching',
 
-    // teamPlayers: (req, res, table)=> {
-    //     con.execute(
-    //         ``
-    //     )
-    // }
-    update: (req, res, table)=> {
+    getStats: (req, res, id)=> {
+
+        con.execute(
+            `SELECT player.player_id, player.fName, player.lName, player.throwing_hand, player.imgUrl, pitching.wins, pitching.losses, pitching.strikeouts, pitching.walks, pitching.saves, pitching.era 
+            FROM player 
+            JOIN pitching USING (player_id)
+            WHERE player_id = ${id};`,
+            (error, rows)=> {
+                if (!error) {
+                    if (rows.length == 1) {
+                        res.json(...rows)
+                    } else {
+                        res.json(rows)
+                    }
+                } else {
+                    console.log('DAO ERROR', error)
+                }
+            } 
+        )
+    },
+
+    update: (req, res)=> {
         if (isNaN(req.params.id)) {
             res.json({
                 "error": true,
@@ -26,7 +42,7 @@ const teamDao = {
 
             con.execute(
                 `UPDATE ${table}
-                    SET ${fields.join(' = ?, ')} = ? WHERE ${table}_id = ?;`,
+                    SET ${fields.join(' = ?, ')} = ? WHERE player_id = ?;`,
                 [...values, req.params.id],
                 (error, dbres)=> {
                     if (!error) {
@@ -41,4 +57,4 @@ const teamDao = {
     }
 }
 
-module.exports = teamDao
+module.exports = pitchingDao

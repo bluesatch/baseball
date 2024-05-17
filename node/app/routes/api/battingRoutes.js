@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { teamDao: dao} = require('../../daos/dao')
+const { battingDao: dao} = require('../../daos/dao')
 
 router.get('/', (req, res)=> {
     dao.findAll(res, dao.table)
@@ -12,7 +12,7 @@ router.get('/sort/:sort', (req, res)=> {
 })
 
 router.get('/:id', (req, res)=> {
-    dao.findById(res, dao.table, req.params.id)
+    dao.getStats(req, res, req.params.id)
 })
 
 router.post('/create', (req, res)=> {

@@ -2,13 +2,18 @@ const con = require('../../config/dbconfig')
 
 const teamDao = {
 
-    table: 'team',
+    table: 'player',
 
     // teamPlayers: (req, res, table)=> {
     //     con.execute(
     //         ``
     //     )
     // }
+
+    getStats: ()=> {
+        `SELECT `
+    },
+
     update: (req, res, table)=> {
         if (isNaN(req.params.id)) {
             res.json({

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const port = process.env.port || 3005
 
-const tables = ['team']
+const tables = ['team', 'player', 'pitching', 'batting']
 
 router.get('/api', (req, res)=> {
     res.json({
