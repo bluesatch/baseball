@@ -66,7 +66,7 @@ const daoCommon = {
             const values = Object.values(req.body)
 
             con.execute(
-                `INSERT INTO ${table} SET ${fields.join(' ?, ')} =?;`,
+                `INSERT INTO ${table} SET ${fields.join(' = ?, ')} =?;`,
                 values,
                 (error, dbres)=> {
                     if (!error) {
